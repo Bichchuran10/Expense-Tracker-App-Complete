@@ -1,0 +1,30 @@
+{
+  "name": "expense-tracker-complete",
+  "version": "1.0.0",
+  "description": "expense tracker app complete",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bichchuran10/Expense-Tracker-App-Complete.git"
+  },
+  "author": "Bichchuran Changmai",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Bichchuran10/Expense-Tracker-App-Complete/issues"
+  },
+  "homepage": "https://github.com/Bichchuran10/Expense-Tracker-App-Complete#readme",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "mysql2": "^3.2.0",
+    "sequelize": "^6.29.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.21"
+  }
+}

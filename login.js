@@ -1,36 +1,28 @@
-const signup=async(event)=>
-{
+const userlogin=async(event)=>{
     try{
         event.preventDefault()
-        console.log('hellooo')
-        console.log(event.target.email.value)
-        let username=event.target.name.value;
-        let email=event.target.email.value;
-        let password=event.target.password.value;
-        console.log('helloo'username)
+        const email=event.target.email.value
+        const password=event.target.password.value
 
-        const user={
-            username,
+        const userLogin={
             email,
             password
         }
-        console.log('helloooo',user)
-        const response= await axios.post('http://localhost:3000/user/login',user)
-        console.log(response)
 
+        const response=await axios.post('http://localhost:3000/user/login',userLogin);
         if(response.status==201)
         {
-            window.location.href="./login.html"
+         alert(response.data.message)   
+         window.location.href='./login.html'
         }
         else
         {
-            throw new Error('Login failed');
+            throw new Error('failed to login existing user')
         }
-
     }
     catch(err)
     {
-        console.log('post req failed',err);
-        document.body.innerHTML+=`<div style="color:red;">${err}</div>`;
+        console.log('error in login',err)
+        document.body.innerHTML+= `<div style="color:red;">${err.message}<div>` 
     }
 }

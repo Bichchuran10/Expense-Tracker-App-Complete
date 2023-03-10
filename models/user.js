@@ -1,11 +1,12 @@
-const Sequelize=require('sequelize');
 const sequelize=require('../util/database')
+const Sequelize=require('sequelize');
 
+//creating User table
 const User=sequelize.define('user',{
     id:{
         type:Sequelize.INTEGER,
-        autoIncrement:true,
         allowNull:false,
+        autoIncrement:true,
         primaryKey:true
 
     },
@@ -17,12 +18,10 @@ const User=sequelize.define('user',{
         type:Sequelize.STRING,
         allowNull:false,
         unique:true
-
     },
     password:{
         type:Sequelize.STRING,
         allowNull:false
-
     }
 })
 

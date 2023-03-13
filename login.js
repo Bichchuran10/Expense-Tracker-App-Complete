@@ -19,7 +19,7 @@ const userlogin=async(event)=>{
     }
     catch(err)
     {
-        console.log('error in login',err)
+        console.log(JSON.stringify(err))
         document.body.innerHTML+= `<div style="color:red;">${err.message}<div>` 
     }
 }

@@ -4,21 +4,18 @@ const userlogin=async(event)=>{
         const email=event.target.email.value
         const password=event.target.password.value
 
-        const userLogin={
+        const loginDetails={
             email,
             password
         }
 
-        const response=await axios.post('http://localhost:3000/user/login',userLogin);
+        const response=await axios.post('http://localhost:3000/user/login',loginDetails);
         if(response.status==201)
         {
          alert(response.data.message)   
          window.location.href='./login.html'
         }
-        else
-        {
-            throw new Error('failed to login existing user')
-        }
+       
     }
     catch(err)
     {

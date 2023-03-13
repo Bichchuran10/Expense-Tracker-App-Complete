@@ -4,10 +4,15 @@ const bodyParser=require('body-parser');
 const sequelize=require('./util/database')
 const app=express()
 const userRouter=require('./routes/user.js')
+const expenseRouter=require('./routes/expense')
 
 app.use(cors())
-app.use(bodyParser.json({extended: false}))
+//app.use(bodyParser.json({extended: false}))
+app.use(bodyParser.json())
+app.use(express.json())
 app.use('/user',userRouter);
+app.use('/expense',expenseRouter)
+
 
 sequelize
 .sync()

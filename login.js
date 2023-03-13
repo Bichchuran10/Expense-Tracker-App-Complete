@@ -10,10 +10,10 @@ const userlogin=async(event)=>{
         }
 
         const response=await axios.post('http://localhost:3000/user/login',loginDetails);
-        if(response.status==201)
+        if(response.status==200)
         {
          alert(response.data.message)   
-         window.location.href='./login.html'
+         window.location.href='./expense.html'
         }
        
     }

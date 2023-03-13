@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily expenses</title>
+</head>
+<body>
+    <h1>ADD YOUR EXPENSE</h1>
+    <form onsubmit="save(event)">
+        <label for="amount">Enter Expense Amount</label>
+        <input type="number" name="amount" id="amount" required><br>
+        <label for="description">Enter expense description</label>
+        <input type="text" name="description" id="description" required><br>
+        <label for="category">Choose expense category</label>
+        <select id="category" name="category" required>
+            <option value="food">Food</option>
+            <option value="movie">Movie</option>
+            <option value="fuel">Fuel</option>
+            <option value="drinks">Drinks</option>
+            <option value="date">Date</option>
+            <option value="recharge">Recharge</option>
+            <option value="accessories">Accessories</option>
+            <option value="vacation">Vacation</option>
+        </select>
+        <button type="submit">Add Expense</button>
+    </form>
+    <ul id="listOfExpenses">Here is your list of expenses</ul>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.4.1/axios.min.js"></script>
+    <script src="expense.js"></script>
+</body>
+</html>

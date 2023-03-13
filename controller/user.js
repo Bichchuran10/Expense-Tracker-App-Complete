@@ -55,7 +55,7 @@ exports.login=async(req,res,next)=>{
                 }
             if(result===true)
             {
-                res.status(201).json({ success: true, message: 'user logged in successfully'})
+                res.status(200).json({ success: true, message: 'user logged in successfully'})
             }
             else
             {

@@ -1,44 +1,58 @@
 const User=require('../models/User')
 const bcrypt=require('bcrypt')
+const jwt=require('jsonwebtoken');
 
-exports.signup=async(req,res,next)=>{
+function isStringInvalid(string)
+{
+    if(string.length===0 || string==='undefined')
+    {
+        return true
+    }
+    else
+    {
+        return false
+    }
+}
+
+
+const signup=async(req,res,next)=>{
     //console.log(req);
     try{
-    const {username,email,password}=req.body
-    if(isStringInvalid(username)|| isStringInvalid(email) || isStringInvalid(password))
-    {
-        res.status(400).json({
-            message:'err: Something is missing!!'
-        })
+        const {name,email,password}=req.body
+        if(isStringInvalid(name)|| isStringInvalid(email) || isStringInvalid(password))
+        {
+            res.status(400).json({
+                message:'err: Something is missing!!'
+            })
+        }
+        const saltRounds=10 //more salt rounds , more complicated password
+        bcrypt.hash(password,saltRounds,async(err,hash)=>{
+            console.log(err)
+            await User.create({name,email,password:hash})
+            res.status(201).json({
+                message:'NEW USER CREATED SUCCESSFULLY'
+            })
+
+        })   
     }
-    const saltRounds=10 //more salt rounds , more complicated password
-    bcrypt.hash(password,saltRounds,async(err,hash)=>{
-        console.log(err)
-        await User.create({name:username,email,password:hash})
-        res.status(201).json({
-            message:'NEW USER CREATED SUCCESSFULLY'
-        })
-
-    })
-
-    
-
-}
-catch(e)
-{
-    console.log(e);
-    res.status(500).json(e)
+    catch(e)
+    {
+        console.log(e);
+        res.status(500).json(e)
+    }
 }
 
-
+function generateAccessToken(id,name){
+    return jwt.sign({userId :id,name:name},'secretkey')
 }
 
-exports.login=async(req,res,next)=>{
+const login=async(req,res,next)=>{
+
     try{
         const {email,password}=req.body;
         if(isStringInvalid(email) || isStringInvalid(password))
         {
-            res.status(400).json({
+            return res.status(400).json({
                 message:'Email or password is missing'
             })
         }
@@ -46,7 +60,6 @@ exports.login=async(req,res,next)=>{
         if(user.length>0)
         {
             console.log('hello',user)
-            console.log('hellooo',user[0])
             //if(user[0].password===password)
             bcrypt.compare(password,user[0].password,(err,result)=>{
                 if(err)
@@ -55,7 +68,11 @@ exports.login=async(req,res,next)=>{
                 }
             if(result===true)
             {
-                res.status(200).json({ success: true, message: 'user logged in successfully'})
+               return res.status(200).json({ 
+                    success: true, 
+                    message: 'user logged in successfully',
+                    token:generateAccessToken(user[0].id,user[0].name)
+            })
             }
             else
             {
@@ -74,17 +91,11 @@ exports.login=async(req,res,next)=>{
     }
 }
 
-function isStringInvalid(string)
-{
-    if(string.length===0 || string==='undefined')
-    {
-        return true
-    }
-    else
-    {
-        return false
-    }
-}
 
+
+module.exports={
+    signup,
+    login
+}
 
 

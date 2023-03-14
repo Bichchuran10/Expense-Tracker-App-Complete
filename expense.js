@@ -12,7 +12,12 @@ const save=async(event)=>{
             category
         }
         console.log(expenseDetails)
-        let response=await axios.post('http://localhost:3000/expense/add-expense',expenseDetails);
+        const token=localStorage.getItem('token')
+        let response=await axios.post('http://localhost:3000/expense/add-expense',
+        expenseDetails,
+        {
+            headers: {'Authorization': token}
+        });
         console.log(response.data.expenseDetails);
 
         showNewExpenseToUI(response.data.expenseDetails);
@@ -27,7 +32,11 @@ const save=async(event)=>{
 
 window.addEventListener('DOMContentLoaded',async()=>{
     try{
-        let response=await axios.get('http://localhost:3000/expense/get-expense')
+        const token=localStorage.getItem('token')
+        let response=await axios.get('http://localhost:3000/expense/get-expense',
+        {
+            headers:{'Authorization':token}
+        })
         
         //console.log(response.data.expenses)
 
@@ -62,7 +71,10 @@ const showNewExpenseToUI=(expenseDetails)=>
 const deleteExpense=async(id)=>{
 
     try{
-    await axios.delete(`http://localhost:3000/expense/delete-expense/${id}`)
+        const token=localStorage.getItem('token')
+    await axios.delete(`http://localhost:3000/expense/delete-expense/${id}`,{
+        headers:{'Authorization':token}
+    })
     console.log(`expense with this id ${id} has been deleted from database`)
     deleteExpenseFromUI(id)
     }

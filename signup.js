@@ -1,12 +1,12 @@
 const login=async(event)=>{
     try{
         event.preventDefault()
-        const username=event.target.name.value;
+        const name=event.target.name.value;
         const email=event.target.email.value;
         const password=event.target.password.value;
 
         const user={
-            username,
+            name,
             email,
             password
         }

@@ -53,7 +53,7 @@ const updateTransactionStatus=async(req,res)=>{
             return res.status(202).json({
                 success:true,
                 message:'Transaction successful',
-                token: generateAccessToken(userId,undefined, true)//undefined,undefined,true  //we have to update the token as premiumuser=true to work the refresh just after premium purchase
+                token: generateAccessToken(undefined,undefined, true)//undefined,undefined,true  //we have to update the token as premiumuser=true to work the refresh just after premium purchase
             });
         }).catch((error)=>{
             throw new Error(error)

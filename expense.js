@@ -18,9 +18,12 @@ const save=async(event)=>{
         {
             headers: {'Authorization': token}
         });
-        console.log(response.data.expenseDetails);
+        console.log('the response',response)
+        console.log('your data',response.data.expense)
+        
 
-        showNewExpenseToUI(response.data.expenseDetails);
+        //showNewExpenseToUI(response.data.expenseDetails);
+        showNewExpenseToUI(response.data.expense);
     }
     catch(err)
     {
@@ -179,7 +182,7 @@ function showLeaderboard(){
 
         leaderboardElem.innerHTML+='<h1> Leaderboard</h1>'
         userLeaderBoardArray.data.forEach((userDetails) => {
-            leaderboardElem.innerHTML+=`<li>Name : ${userDetails.name} Total Expenses : ${userDetails.total_cost}</li>`
+            leaderboardElem.innerHTML+=`<li>Name : ${userDetails.name} Total Expenses : ${userDetails.totalExpenses}</li>`
         });
     }
     document.getElementById('message').appendChild(inputElement)

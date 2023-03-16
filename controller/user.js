@@ -27,7 +27,7 @@ const signup=async(req,res,next)=>{
         }
         const saltRounds=10 //more salt rounds , more complicated password
         bcrypt.hash(password,saltRounds,async(err,hash)=>{
-            console.log(err)
+            console.log('error in signup',err)
             await User.create({name,email,password:hash})
             res.status(201).json({
                 message:'NEW USER CREATED SUCCESSFULLY'
@@ -59,8 +59,7 @@ const login=async(req,res,next)=>{
         const user=await User.findAll({where:{email}}); //user with that email
         if(user.length>0)
         {
-            //console.log('hello',user)
-            //if(user[0].password===password)
+        
             bcrypt.compare(password,user[0].password,(err,result)=>{
                 if(err)
                 {

@@ -3,9 +3,12 @@ const cors=require('cors');
 const bodyParser=require('body-parser');
 const sequelize=require('./util/database')
 const app=express()
+
 const userRouter=require('./routes/user.js')
 const expenseRouter=require('./routes/expense')
 const purchaseRouer=require('./routes/purchase')
+const premiumFeatureRouter=require('./routes/premiumFeature')
+
 const User=require('./models/User');
 const Expense=require('./models/Expense');
 const Order=require('./models/Order')
@@ -25,6 +28,7 @@ app.use(express.json())
 app.use('/user',userRouter);
 app.use('/expense',expenseRouter);
 app.use('/purchase',purchaseRouer);
+app.use('/premium',premiumFeatureRouter)
 
 
 sequelize

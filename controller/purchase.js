@@ -1,5 +1,14 @@
 const Razorpay=require('razorpay')
 const Order=require('../models/Order')
+const jwt=require('jsonwebtoken')
+
+// function generateAccessToken(id,name, ispremiumuser){
+//     return jwt.sign({userId :id,name:name, ispremiumuser},'secretkey')
+// }
+
+const generateAccessToken = (id,name,ispremiumuser)=>{
+    return jwt.sign({userId: id, name: name, ispremiumuser}, 'secretkey');
+}
 
 const purchasepremium=async(req,res)=>{
     try{
@@ -42,7 +51,8 @@ const updateTransactionStatus=async(req,res)=>{
         Promise.all([promise1,promise2]).then(()=>{
             return res.status(202).json({
                 success:true,
-                message:'Transaction successful'
+                message:'Transaction successful',
+                token: generateAccessToken(userId,undefined, true)//undefined,undefined,true  //we have to update the token as premiumuser=true to work the refresh just after premium purchase
             });
         }).catch((error)=>{
             throw new Error(error)

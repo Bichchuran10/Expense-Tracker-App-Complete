@@ -42,8 +42,8 @@ const signup=async(req,res,next)=>{
     }
 }
 
-function generateAccessToken(id,name){
-    return jwt.sign({userId :id,name:name},'secretkey')
+function generateAccessToken(id,name, ispremiumuser){
+    return jwt.sign({userId :id,name:name, ispremiumuser},'secretkey')
 }
 
 const login=async(req,res,next)=>{
@@ -59,7 +59,7 @@ const login=async(req,res,next)=>{
         const user=await User.findAll({where:{email}}); //user with that email
         if(user.length>0)
         {
-            console.log('hello',user)
+            //console.log('hello',user)
             //if(user[0].password===password)
             bcrypt.compare(password,user[0].password,(err,result)=>{
                 if(err)
@@ -71,7 +71,7 @@ const login=async(req,res,next)=>{
                return res.status(200).json({ 
                     success: true, 
                     message: 'user logged in successfully',
-                    token:generateAccessToken(user[0].id,user[0].name)
+                    token:generateAccessToken(user[0].id,user[0].name,user[0].ispremiumuser)
             })
             }
             else

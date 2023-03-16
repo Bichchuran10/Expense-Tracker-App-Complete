@@ -1,6 +1,7 @@
 const Razorpay=require('razorpay')
 const Order=require('../models/Order')
 const jwt=require('jsonwebtoken')
+const sequelize=require('../util/database');
 
 // function generateAccessToken(id,name, ispremiumuser){
 //     return jwt.sign({userId :id,name:name, ispremiumuser},'secretkey')

@@ -49,6 +49,8 @@ const deleteExpense=async(req,res,next)=>{
 
     try{
     const expenseId=req.params.id
+    console.log('expense Id is',expenseId)
+    console.log('userId is',req.user.id) 
     console.log(expenseId)
         if(expenseId===undefined || expenseId.length==0)
         {
@@ -59,7 +61,7 @@ const deleteExpense=async(req,res,next)=>{
         }
        // await Expense.destroy({where:{ id:expenseId}})
        //const totalExpense = Number(req.user.totalExpenses)- Number(req.expense.amount)
-       const noofrows=await Expense.destroy({where : {id:expenseId}})
+       const noofrows=await Expense.destroy({where : {id:expenseId,userId:req.user.id}})
      
        if(noofrows===0)
        {

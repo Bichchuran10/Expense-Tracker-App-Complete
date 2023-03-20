@@ -202,7 +202,6 @@ const download=()=>{
         } else {
             throw new Error(response.data.message)
         }
-
     })
     .catch((err) => {
         console.log(err)

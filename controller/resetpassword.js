@@ -3,7 +3,7 @@ const uuid = require('uuid');
 const sgMail = require('@sendgrid/mail');
 const bcrypt = require('bcrypt');
 
-const User = require('../models/users');
+
 const Forgotpassword = require('../models/ForgotPassword');
 
 const forgotpassword = async (req, res) => {

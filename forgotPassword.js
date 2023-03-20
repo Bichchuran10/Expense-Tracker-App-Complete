@@ -1,4 +1,4 @@
-const forgotPassword=async(event)=>{
+const forgotpassword=async(event)=>{
     try{
 
         event.preventDefault()

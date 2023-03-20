@@ -5,12 +5,14 @@ const sequelize=require('./util/database')
 const app=express()
 const dotenv = require('dotenv');
 
+//routes
 const userRouter=require('./routes/user.js')
 const expenseRouter=require('./routes/expense')
 const purchaseRouer=require('./routes/purchase')
 const premiumFeatureRouter=require('./routes/premiumFeature')
 const forgotPasswordRouter=require('./routes/forgotPassword')
 
+//models
 const User=require('./models/User');
 const Expense=require('./models/Expense');
 const Order=require('./models/Order')
@@ -25,6 +27,8 @@ Order.belongsTo(User);
 User.hasMany(ForgotPassword)
 ForgotPassword.belongsTo(User);
 
+// get config vars
+dotenv.config();
 
 
 app.use(cors())

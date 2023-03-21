@@ -35,6 +35,7 @@ const save=async(event)=>{
 
 window.addEventListener('DOMContentLoaded',async()=>{
     try{
+        //const page=1;
         const token=localStorage.getItem('token')
         const decodeToken=parseJwt(token)
         console.log('decoded token isss ',decodeToken)
@@ -44,7 +45,7 @@ window.addEventListener('DOMContentLoaded',async()=>{
             showPremiumUserMessage()
             showLeaderboard()
         }
-        let response=await axios.get('http://localhost:3000/expense/get-expense',
+        let response=await axios.get(`http://localhost:3000/expense/get-expense`, //?page=${page}
         {
             headers:{'Authorization':token}
         })
@@ -59,8 +60,10 @@ window.addEventListener('DOMContentLoaded',async()=>{
         for(let i=0;i<response.data.expenses.length;i++)
         {
             showNewExpenseToUI(response.data.expenses[i])
+            
             //console.log(response.data.expenses[i])
         }
+        //showPagination(response.data)
         }
     catch(e)
     {
@@ -210,3 +213,34 @@ const download=()=>{
         console.log(err)
     });
 }
+
+
+// const pagination=document.getElementById('pagination');
+// function showPagination({
+//     currentPage,
+//     hasNextPage,
+//     hasPreviousPage,
+//     nextPage,
+//     previousPage
+// }){
+//     pagination.innerHTML="";
+
+//     if(hasPreviousPage){
+//         const btn2=document.createElement('button');
+//         btn2.innerHTML=previousPage;
+//         btn2.addEventListener('click',()=> getExpenses(previousPage));
+//         pagination.appendChild(btn2)
+//     }
+
+//     const btn1=document.createElement('button');
+//     btn1.innerHTML=currentPage;
+//     btn1.addEventListener('click',()=> getExpenses(currentPage));
+//     pagination.appendChild(btn1)
+
+//     if(hasNextPage){
+//         const btn3=document.createElement('button');
+//         btn3.innerHTML=nextPage;
+//         btn3.addEventListener('click',()=>getExpenses(nextPage));
+//         pagination.appendChild(btn3)
+//     }
+// }

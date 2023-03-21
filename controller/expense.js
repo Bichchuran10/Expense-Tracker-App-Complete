@@ -1,6 +1,8 @@
 const Expense=require('../models/Expense');
 const User=require('../models/User')
 const sequelize=require('../util/database')
+const S3Service=require('../services/S3services')
+const UserServices=require('../services/userservices')
 
   
 
@@ -84,9 +86,41 @@ const deleteExpense=async(req,res,next)=>{
    }
 }
 
+
+
+
+
+const downloadexpense=async(req,res,next)=>{
+    try{
+
+        const expenses=await UserServices.getExpenses(req)
+        console.log(expenses)
+
+        const stringifiedExpenses=JSON.stringify(expenses);
+
+        //it should depend upon the userid
+        const userId=req.user.id; 
+
+        const filename=`Expense${userId}/${new Date()}.txt`;
+        const fileUrl=await S3Service.uploadToS3(stringifiedExpenses,filename)
+
+        console.log(fileUrl)
+        res.status(200).json({ fileUrl, success:true})
+
+
+    }catch(err){
+        console.log(err)
+        res.status(500).json({fileUrl:'',success:false,err:err})
+
+    }
+
+    
+}
+
 module.exports={
     addExpense,
     getExpense,
-    deleteExpense
+    deleteExpense,
+    downloadexpense
 }
 

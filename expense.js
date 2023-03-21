@@ -194,6 +194,9 @@ const download=()=>{
     const token = localStorage.getItem('token')
     axios.get('http://localhost:3000/user/download', { headers: {"Authorization" : token} })
     .then((response) => {
+
+            //backend is essentially sending a download link,which if we open
+            //in browser , the file would be downloaded
         if(response.status === 200){
             var a = document.createElement("a");
             a.href = response.data.fileUrl;

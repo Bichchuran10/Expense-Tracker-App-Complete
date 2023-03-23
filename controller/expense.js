@@ -3,6 +3,7 @@ const User=require('../models/User')
 const sequelize=require('../util/database')
 const S3Service=require('../services/S3services')
 const UserServices=require('../services/userservices')
+const DownloadedFile=require('../models/DownloadedFile')
 
   
 
@@ -105,6 +106,11 @@ const downloadexpense=async(req,res,next)=>{
         const fileUrl=await S3Service.uploadToS3(stringifiedExpenses,filename)
 
         console.log(fileUrl)
+
+        DownloadedFile.create({
+            url:fileUrl,
+            userId:req.user.id
+        })
         res.status(200).json({ fileUrl, success:true})
 
 

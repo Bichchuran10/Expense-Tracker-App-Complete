@@ -1,0 +1,24 @@
+1.Environment variables store data that's used by the operating system and other programs
+Environment variables are used to store app secrets and configuration data, which are retrieved by your running app when needed.
+
+Production ready->
+1. Use Environment variables ->avoid hard coded values in our code like secret-keys etc
+2. Use production API keys -> not the testing API keys like stripe
+3. Reduce Error Output details -> Don't send sensitive information to your users.
+4. set secure response headers -> implement best practices.
+
+//often handled by the hosting provider
+5. add asset compression -> reduce response size
+6. configure logging -> stay up to date about what's happening
+7. Use SSL/TLS ->ENCRYPT DATA IN TRANSIT
+
+Process .ev->
+
+The process. env global variable is injected by the Node at runtime for your application to use and
+ it represents the state of the system environment your application is in when it starts. 
+For example, if you set a PORT variable in the system, it can be accessed through the process.env.PORT variable
+ because, when we set an environment variable, it is loaded into process.env during runtime and can later be accessed. 
+
+
+ Helmet can help protect your app from some well-known web vulnerabilities by setting HTTP headers appropriately.
+Generally, Helmet is just a collection of smaller middleware functions that set security-related HTTP headers

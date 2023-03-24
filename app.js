@@ -11,6 +11,13 @@ const helmet=require('helmet')
 const compression=require('compression')
 const morgan=require('morgan')
 
+//models
+const User=require('./models/User');
+const Expense=require('./models/Expense');
+const Order=require('./models/Order')
+const ForgotPassword=require('./models/ForgotPassword')
+const DownloadedFile=require('./models/DownloadedFile')
+
 //routers
 const userRouter=require('./routes/user.js')
 const expenseRouter=require('./routes/expense')
@@ -19,12 +26,7 @@ const premiumFeatureRouter=require('./routes/premiumFeature')
 const forgotPasswordRouter=require('./routes/forgotPassword')
 const downloadFilesRoute= require('./routes/allDownload')
 
-//models
-const User=require('./models/User');
-const Expense=require('./models/Expense');
-const Order=require('./models/Order')
-const ForgotPassword=require('./models/ForgotPassword')
-const DownloadedFile=require('./models/DownloadedFile')
+
 
 User.hasMany(Expense);
 Expense.belongsTo(User);

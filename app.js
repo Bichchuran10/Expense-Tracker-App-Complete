@@ -61,8 +61,8 @@ app.use('/download', downloadFilesRoute)
 
 
 sequelize
-.sync()
-//.sync({force:true})
+//.sync()
+.sync({force:true})
 .then((res)=>{
     app.listen(3000)
     //console.log(res)

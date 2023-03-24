@@ -1,4 +1,4 @@
-const sequelize=require('../util/database')
+const sequelize=require('../util/database')sfsa
 const Sequelize=require('sequelize');
 
 //creating User table

@@ -22,3 +22,33 @@ For example, if you set a PORT variable in the system, it can be accessed throug
 
  Helmet can help protect your app from some well-known web vulnerabilities by setting HTTP headers appropriately.
 Generally, Helmet is just a collection of smaller middleware functions that set security-related HTTP headers
+
+
+
+SSL stands for Secure Sockets Layer, a security protocol that creates an encrypted link between a web server and a web browser.
+Companies and organizations need to add SSL certificates to their websites to secure online transactions and keep customer information private and secure.
+
+The primary purpose of SSL is to provide a secure transport-layer connection between two endpoints, the server and the client.
+public key-> attached with the certificate, private key remains with the server for decription purpose.
+
+
+Git is a version control system that developers use all over the world. It helps you track different versions of your code and collaborate with other developers.
+If you are working on a project over time, you may want to keep track of which changes were made, by whom, and when those changes were made.
+
+
+
+What is commit and branch?
+In Git, a branch is a pointer to one specific commit, while a commit is a snapshot of your repository at a specific point in time.
+Your branch pointer moves along with each new commit you make.
+
+GitIgnore
+The purpose of gitignore files is to ensure that certain files not tracked by Git remain untracked. 
+
+To stop tracking a file that is currently tracked, use git rm --cached.
+
+Node modules are not pushed into git :
+The node_modules directory is one of the crucial parts of any node or React project,
+ but it shouldn't be tracked by the version control system (git) due to its large size
+
+
+Restarting a server closes all the processes that are running and starts them again.

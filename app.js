@@ -1,4 +1,5 @@
 const express=require('express')
+const path = require('path');
 const cors=require('cors');
 const bodyParser=require('body-parser');
 const sequelize=require('./util/database')
@@ -8,7 +9,7 @@ const helmet=require('helmet')
 const compression=require('compression')
 const morgan=require('morgan')
 
-//routes
+//routers
 const userRouter=require('./routes/user.js')
 const expenseRouter=require('./routes/expense')
 const purchaseRouer=require('./routes/purchase')
@@ -48,11 +49,14 @@ app.use(morgan())
 //app.use(bodyParser.json({extended: false}))
 app.use(bodyParser.json())
 app.use(express.json())
+
+
 app.use('/user',userRouter);
 app.use('/expense',expenseRouter);
 app.use('/purchase',purchaseRouer);
 app.use('/premium',premiumFeatureRouter)
 app.use('/password',forgotPasswordRouter);
+app.use('/download', downloadFilesRoute)
 
 
 sequelize

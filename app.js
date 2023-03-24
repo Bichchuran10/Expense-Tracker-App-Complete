@@ -2,9 +2,11 @@ const express=require('express')
 const path = require('path');
 const cors=require('cors');
 const bodyParser=require('body-parser');
+const dotenv = require('dotenv'); //THIS HAS TO BE BEFORE sequelize and everything where we are using .env
+// get config vars
+dotenv.config();
 const sequelize=require('./util/database')
 const app=express()
-const dotenv = require('dotenv');
 const helmet=require('helmet')
 const compression=require('compression')
 const morgan=require('morgan')
@@ -36,8 +38,7 @@ ForgotPassword.belongsTo(User);
 User.hasMany(DownloadedFile)
 DownloadedFile.belongsTo(User)
 
-// get config vars
-dotenv.config();
+
 
 
 app.use(cors())

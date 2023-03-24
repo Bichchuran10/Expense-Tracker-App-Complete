@@ -9,7 +9,7 @@ const userlogin=async(event)=>{
             password
         }
 
-        const response=await axios.post('http://localhost:3000/user/login',loginDetails);
+        const response=await axios.post('http://44.204.114.186:3000/user/login',loginDetails);
        // if(response.status==200)
         //{
          alert(response.data.message)   

@@ -12,7 +12,7 @@ const login=async(event)=>{
         }
 
         console.log('helloo',user);
-        let response=await axios.post('http://localhost:3000/user/signup',user)
+        let response=await axios.post('http://44.204.114.186:3000/user/signup',user)
         console.log('here is your response',response.data)
         if(response.status==201)
         {

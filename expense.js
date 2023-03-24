@@ -13,7 +13,7 @@ const save=async(event)=>{
         }
         console.log(expenseDetails)
         const token=localStorage.getItem('token')
-        let response=await axios.post('http://44.204.114.186:3000/expense/add-expense',
+        let response=await axios.post('http://18.209.227.96:3000/expense/add-expense',
         expenseDetails,
         {
             headers: {'Authorization': token}
@@ -45,7 +45,7 @@ window.addEventListener('DOMContentLoaded',async()=>{
             showPremiumUserMessage()
             showLeaderboard()
         }
-        let response=await axios.get(`http://44.204.114.186:3000/expense/get-expense`, //?page=${page}
+        let response=await axios.get(`http://18.209.227.96:3000/expense/get-expense`, //?page=${page}
         {
             headers:{'Authorization':token}
         })
@@ -86,7 +86,7 @@ const deleteExpense=async(id)=>{
 
     try{
         const token=localStorage.getItem('token')
-    await axios.delete(`http://44.204.114.186:3000/expense/delete-expense/${id}`,{
+    await axios.delete(`http://18.209.227.96:3000/expense/delete-expense/${id}`,{
         headers:{'Authorization':token}
     })
     console.log(`expense with this id ${id} has been deleted from database`)
@@ -114,7 +114,7 @@ const deleteExpenseFromUI=(id)=>{
 
 document.getElementById('rzp-button1').onclick=async function(event){
     const token=localStorage.getItem('token')
-    const response=await axios.get('http://44.204.114.186:3000/purchase/premiummembership',{
+    const response=await axios.get('http://18.209.227.96:3000/purchase/premiummembership',{
         headers:{'Authorization':token}
     })
     console.log(response)
@@ -125,7 +125,7 @@ document.getElementById('rzp-button1').onclick=async function(event){
         //to handle success payments
         "handler": async function(response){
 
-            const res=await axios.post('http://44.204.114.186:3000/purchase/updatetransactionstatus',{
+            const res=await axios.post('http://18.209.227.96:3000/purchase/updatetransactionstatus',{
                 order_id: options.order_id,
                 payment_id:response.razorpay_payment_id,
         },
@@ -178,7 +178,7 @@ function showLeaderboard(){
 
     inputElement.onclick=async()=>{
         const token=localStorage.getItem('token')
-        const userLeaderBoardArray = await axios.get('http://44.204.114.186:3000/premium/showLeaderBoard',
+        const userLeaderBoardArray = await axios.get('http://18.209.227.96:3000/premium/showLeaderBoard',
          { headers: {'Authorization': token} })
         console.log('here is your leaderboard',userLeaderBoardArray)
 
@@ -195,7 +195,7 @@ function showLeaderboard(){
 
 const download=()=>{
     const token = localStorage.getItem('token')
-    axios.get('http://44.204.114.186:3000/user/download', { headers: {"Authorization" : token} })
+    axios.get('http://18.209.227.96:3000/user/download', { headers: {"Authorization" : token} })
     .then((response) => {
 
             //backend is essentially sending a download link,which if we open

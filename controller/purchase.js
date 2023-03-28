@@ -13,9 +13,11 @@ const generateAccessToken = (id,name,ispremiumuser)=>{
 
 const purchasepremium=async(req,res)=>{
     try{
+        console.log('key id',process.env.RAZORPAY_KEY_ID)
+        console.log('KEY SECRET',process.env.RAZORPAY_KEY_SECRET)
         var rzp=new Razorpay({
-            key_id: 'rzp_test_B6jgs4AWMkdtRx',
-            key_secret: 'RBgAN5znoCcMgVsjMZxmiylU'
+            key_id: 'rzp_test_jwrK5oh3U1lmo2',
+            key_secret:"A07TBv0FA7e1MWYrBdqG8ymV"
             //process.env.RAZORPAY_KEY_SECRET
         })
        

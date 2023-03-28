@@ -7,7 +7,7 @@ const dotenv = require('dotenv'); //THIS HAS TO BE BEFORE sequelize and everythi
 dotenv.config();
 const sequelize=require('./util/database')
 const app=express()
-const helmet=require('helmet')
+//const helmet=require('helmet')
 const compression=require('compression')
 const morgan=require('morgan')
 
@@ -44,7 +44,7 @@ DownloadedFile.belongsTo(User)
 
 
 app.use(cors())
-app.use(helmet())
+//app.use(helmet())
 app.use(compression());
 app.use(morgan())
 
@@ -61,11 +61,19 @@ app.use('/premium',premiumFeatureRouter)
 app.use('/password',forgotPasswordRouter);
 app.use('/download', downloadFilesRoute)
 
+app.use((req, res) => {
+    console.log(req.url)
+    res.sendFile(path.join(__dirname, `public/${req.url}`))
+    //res.sendFile(path.join(__dirname, `public/Login/login.html`))
+})
+
+
 
 sequelize
-//.sync()
-.sync({force:true})
+.sync()
+//.sync({force:true})
 .then((res)=>{
+    
     app.listen(3000)
     //console.log(res)
     console.log('app is running on port 3000')

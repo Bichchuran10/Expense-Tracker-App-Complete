@@ -101,6 +101,7 @@ const downloadexpense=async(req,res,next)=>{
 
         //it should depend upon the userid
         const userId=req.user.id; 
+        console.log("in download userId",userId)
 
         const filename=`Expense${userId}/${new Date()}.txt`;
         const fileUrl=await S3Service.uploadToS3(stringifiedExpenses,filename)

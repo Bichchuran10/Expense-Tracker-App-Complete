@@ -10,11 +10,13 @@ const userlogin=async(event)=>{
         }
 
         const response=await axios.post('http://18.209.227.96:3000/user/login',loginDetails);
+       // http://18.209.227.96:3000
+    
        // if(response.status==200)
         //{
          alert(response.data.message)   
          localStorage.setItem('token',response.data.token)
-         window.location.href='./expense.html'
+         window.location.href='../ExpenseTracker/expense.html' //on successful login
         //}
        
     }
@@ -25,5 +27,5 @@ const userlogin=async(event)=>{
     }
 }
 function forgotpassword() {
-    window.location.href = "./forgotPassword.html"
+    window.location.href = "../ForgotPassword/forgotPassword.html"
 }

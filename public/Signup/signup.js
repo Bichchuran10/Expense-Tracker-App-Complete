@@ -17,7 +17,7 @@ const login=async(event)=>{
         if(response.status==201)
         {
         alert(response.data.message)
-        window.location.href ='./signup.html'
+        window.location.href ='../Login/login.html'
         }
         else
         {

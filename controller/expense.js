@@ -50,41 +50,35 @@ const getExpense=(req,res)=>{
 
 const deleteExpense=async(req,res,next)=>{
 
-    try{
-    const expenseId=req.params.id
-    console.log('expense Id is',expenseId)
-    console.log('userId is',req.user.id) 
-    console.log(expenseId)
-        if(expenseId===undefined || expenseId.length==0)
-        {
-            return res.status(400).json({
-                success:false,
-                message:'Missing Parameters'
-            })
-        }
-       // await Expense.destroy({where:{ id:expenseId}})
-       //const totalExpense = Number(req.user.totalExpenses)- Number(req.expense.amount)
-       const noofrows=await Expense.destroy({where : {id:expenseId,userId:req.user.id}})
-     
-       if(noofrows===0)
-       {
-            return res.status(404).json({
-                success:false,
-                message:"Expense doesn't belong to the user"
-            })
-        }
-        return res.status(200).json({
-            success:true,
-            message: 'Expense deleted succesfully'
-        })
-   }
-   catch(err)
-   {
-        console.log('deletion',err)
+    try {
+        const deleteId = req.params.id
+        const amount = req.query.amount
+        console.log(" query amount",amount)
 
-        return res.status(500).json({
-            success:false,message:'Failed'})
-   }
+        
+        
+
+       //console.log("whole request",req)
+        console.log("for deleteeeeeee",deleteId)
+        
+        let totalExpenseAmount = await User.findByPk(req.user.id, {
+            attributes: ['totalExpenses']
+        })
+        
+        console.log("hellooooo your totalexp issssssssssssssssssss",totalExpenseAmount.totalExpenses)
+        totalExpenseAmount.totalExpenses -= parseInt(amount)
+        
+        console.log("total after calculation ",totalExpenseAmount)
+        console.log("total after calculation hahhaha ",totalExpenseAmount.totalExpenses)
+        
+
+        const p1 =  User.update({totalExpenses: totalExpenseAmount.totalExpenses}, {where: {id: req.user.id}})
+        const p2 = Expense.destroy({where: {id: deleteId}})
+        const response = await Promise.all([p1, p2])
+        res.json({response})
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 

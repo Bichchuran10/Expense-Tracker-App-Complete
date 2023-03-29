@@ -81,7 +81,6 @@ const deleteExpense=async(req,res,next)=>{
    catch(err)
    {
         console.log('deletion',err)
-
         return res.status(500).json({
             success:false,message:'Failed'})
    }

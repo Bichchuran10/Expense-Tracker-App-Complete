@@ -54,24 +54,14 @@ const deleteExpense=async(req,res,next)=>{
         const deleteId = req.params.id
         const amount = req.query.amount
         console.log(" query amount",amount)
-
-        
-        
-
-       //console.log("whole request",req)
         console.log("for deleteeeeeee",deleteId)
         
         let totalExpenseAmount = await User.findByPk(req.user.id, {
             attributes: ['totalExpenses']
         })
-        
-        console.log("hellooooo your totalexp issssssssssssssssssss",totalExpenseAmount.totalExpenses)
+         
         totalExpenseAmount.totalExpenses -= parseInt(amount)
         
-        console.log("total after calculation ",totalExpenseAmount)
-        console.log("total after calculation hahhaha ",totalExpenseAmount.totalExpenses)
-        
-
         const p1 =  User.update({totalExpenses: totalExpenseAmount.totalExpenses}, {where: {id: req.user.id}})
         const p2 = Expense.destroy({where: {id: deleteId}})
         const response = await Promise.all([p1, p2])

@@ -19,10 +19,6 @@ const login=async(event)=>{
         alert(response.data.message)
         window.location.href ='../Login/login.html'
         }
-        else
-        {
-            throw new Error('Failed to login')
-        }
 
     }
     catch(err)

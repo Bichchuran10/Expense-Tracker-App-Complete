@@ -8,15 +8,17 @@ const userlogin=async(event)=>{
             email,
             password
         }
-        document.getElementById('loginError').innerHTML = ''
+    
 
         const response=await axios.post('http://localhost:3000/user/login',loginDetails);
        // http://localhost:3000
     
-    
+        if(response.status=200)
+        {
          alert(response.data.message)   
          localStorage.setItem('token',response.data.token)
          window.location.href='../ExpenseTracker/expense.html' //on successful login
+        }
     
        
     }
@@ -26,8 +28,8 @@ const userlogin=async(event)=>{
 
         // console.log('helloooooo',error)
         // console.log('helloooooo',error.status)
-        console.log("err is",error.data.message)
         document.body.innerHTML+= `<div style="color:red;">${error.data.message}<div>` 
+        document.body.innerHTML+= `<div style="color:red;">${error}<div>` 
     }
 }
 function forgotpassword() {

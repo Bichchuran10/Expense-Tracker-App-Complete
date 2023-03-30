@@ -24,7 +24,7 @@ const expenseRouter=require('./routes/expense')
 const purchaseRouer=require('./routes/purchase')
 const premiumFeatureRouter=require('./routes/premiumFeature')
 const forgotPasswordRouter=require('./routes/forgotPassword')
-const downloadFilesRoute= require('./routes/allDownload')
+//const downloadFilesRoute= require('./routes/allDownload')
 
 
 
@@ -59,7 +59,7 @@ app.use('/expense',expenseRouter);
 app.use('/purchase',purchaseRouer);
 app.use('/premium',premiumFeatureRouter)
 app.use('/password',forgotPasswordRouter);
-app.use('/download', downloadFilesRoute)
+//app.use('/download', downloadFilesRoute)
 
 app.use((req, res) => {
     console.log(req.url)

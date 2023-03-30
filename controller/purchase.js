@@ -13,8 +13,8 @@ const purchasepremium=async(req,res)=>{
         console.log('key id',process.env.RAZORPAY_KEY_ID)
         console.log('KEY SECRET',process.env.RAZORPAY_KEY_SECRET)
         var rzp=new Razorpay({
-            key_id: 'rzp_test_jwrK5oh3U1lmo2',
-            key_secret:"A07TBv0FA7e1MWYrBdqG8ymV"
+            key_id:'rzp_test_mNE4FzSiZZNfCz',
+            key_secret:'eJOhR7VVDF1XxwgAOiER6SpG'
             //process.env.RAZORPAY_KEY_SECRET
         })
        
@@ -52,7 +52,7 @@ const updateTransactionStatus=async(req,res)=>{
             return res.status(202).json({
                 success:true,
                 message:'Transaction successful',
-                token: generateAccessToken(undefined,undefined, true)//undefined,undefined,true  //we have to update the token as premiumuser=true to work the refresh just after premium purchase
+                token: generateAccessToken(req.user.id,req.user.name, true)//undefined,undefined,true  //we have to update the token as premiumuser=true to work the refresh just after premium purchase
             });
         }).catch((error)=>{
             throw new Error(error)

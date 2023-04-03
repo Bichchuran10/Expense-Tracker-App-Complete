@@ -23,7 +23,7 @@ const save=async(event)=>{
         
 
         //showNewExpenseToUI(response.data.expenseDetails);
-        showNewExpenseToUI(response.data.expense);
+        //showNewExpenseToUI(response.data.expense);
     }
     catch(err)
     {
@@ -35,7 +35,7 @@ const save=async(event)=>{
 
 window.addEventListener('DOMContentLoaded',async()=>{
     try{
-        //const page=1;
+        
         const token=localStorage.getItem('token')
         const decodeToken=parseJwt(token)
         console.log('decoded token isss ',decodeToken)
@@ -45,7 +45,8 @@ window.addEventListener('DOMContentLoaded',async()=>{
             showPremiumUserMessage()
             showLeaderboard()
         }
-        let response=await axios.get(`http://localhost:3000/expense/get-expense`, //?page=${page}
+        const page=1;
+        let response=await axios.get(`http://localhost:3000/expense/get-expense?page=${page}`, //?page=${page}
         {
             headers:{'Authorization':token}
         })
@@ -57,13 +58,14 @@ window.addEventListener('DOMContentLoaded',async()=>{
         //     console.log('final',expense)
             
         // });
-        for(let i=0;i<response.data.expenses.length;i++)
-        {
-            showNewExpenseToUI(response.data.expenses[i])
+        // for(let i=0;i<response.data.expenses.length;i++)
+        // {
+        //     showNewExpenseToUI(response.data.expenses[i])
             
-            //console.log(response.data.expenses[i])
-        }
-        //showPagination(response.data)
+        //     console.log("On screen",response.data.expenses[i])
+        // }
+        showNewExpenseToUI(response.data.expenses)
+        showPagination(response.data)
         }
     catch(e)
     {
@@ -74,11 +76,17 @@ window.addEventListener('DOMContentLoaded',async()=>{
 const showNewExpenseToUI=(expenseDetails)=>
 {
     const parentNode=document.getElementById('listOfExpenses')
-    const childHTML=`<li id=${expenseDetails.id}> Expense Amount : ${expenseDetails.amount} - Expense Description : ${expenseDetails.description} - Expense Category : ${expenseDetails.category}
-                    <button onclick=deleteExpense(${expenseDetails.id},${expenseDetails.amount})>Delete</button> </li>`
+    parentNode.innerHTML=""
+    for(let i=0;i<expenseDetails.length;i++)
+    {
+        const childHTML=`<li id=${expenseDetails[i].id}> Expense Amount : ${expenseDetails[i].amount} - Expense Description : ${expenseDetails[i].description} - Expense Category : ${expenseDetails[i].category}
+                    <button onclick=deleteExpense(${expenseDetails[i].id},${expenseDetails[i].amount})>Delete</button> </li>`
+        parentNode.innerHTML+=childHTML
+    }
+    
     
         
-    parentNode.innerHTML=parentNode.innerHTML+childHTML
+    
 
 }
 
@@ -191,8 +199,11 @@ function showLeaderboard(){
         userLeaderBoardArray.data.forEach((userDetails) => {
             leaderboardElem.innerHTML+=`<li>Name : ${userDetails.name} Total Expenses : ${userDetails.totalExpenses}</li>`
         });
+        inputElement.disabled=true;
     }
     document.getElementById('message').appendChild(inputElement)
+    
+
 }
 
 const download=()=>{
@@ -217,32 +228,88 @@ const download=()=>{
 }
 
 
-// const pagination=document.getElementById('pagination');
-// function showPagination({
-//     currentPage,
-//     hasNextPage,
-//     hasPreviousPage,
-//     nextPage,
-//     previousPage
-// }){
-//     pagination.innerHTML="";
+const pagination=document.getElementById('pagination');
+function showPagination({
+    currentPage,
+    hasNextPage,
+    nextPage,
+    hasPreviousPage,
+    previousPage,
+    lastPage
+}){
+//const pagination=document.getElementById('pagination')
 
-//     if(hasPreviousPage){
-//         const btn2=document.createElement('button');
-//         btn2.innerHTML=previousPage;
-//         btn2.addEventListener('click',()=> getExpenses(previousPage));
-//         pagination.appendChild(btn2)
-//     }
 
-//     const btn1=document.createElement('button');
-//     btn1.innerHTML=currentPage;
-//     btn1.addEventListener('click',()=> getExpenses(currentPage));
-//     pagination.appendChild(btn1)
+   pagination.innerHTML="";
 
-//     if(hasNextPage){
-//         const btn3=document.createElement('button');
-//         btn3.innerHTML=nextPage;
-//         btn3.addEventListener('click',()=>getExpenses(nextPage));
-//         pagination.appendChild(btn3)
-//     }
+   console.log("next page is",nextPage)
+   console.log("prev page is",previousPage)
+
+    if(hasPreviousPage){
+        const btn2=document.createElement('button');
+        btn2.innerHTML=previousPage;
+        btn2.addEventListener('click',()=> getExpenses(previousPage));
+        pagination.appendChild(btn2)
+    }
+
+    const btn1=document.createElement('button');
+    btn1.innerHTML=currentPage;
+    btn1.addEventListener('click',()=> getExpenses(currentPage));
+    pagination.appendChild(btn1)
+
+    if(hasNextPage){
+        const btn3=document.createElement('button');
+        btn3.innerHTML=nextPage;
+        btn3.addEventListener('click',()=>getExpenses(nextPage));
+        pagination.appendChild(btn3)
+    }
+}
+
+const getExpenses=async(page)=>
+{
+    try
+    {
+        console.log("gettttt",page)
+        // let response=await axios.get(`http://localhost:3000/expense/get-expense?page=${page}`, //?page=${page}
+        // {
+        //     headers:{'Authorization':token}
+        // })
+        const token= localStorage.getItem('token');
+        let res =await axios.get(`http://localhost:3000/expense/get-expense?page=${page}`,{
+            headers:{'Authorization':token}
+        })
+        console.log('inside getExpenses',res)
+        
+        showNewExpenseToUI(res.data.expenses)   
+        showPagination(res.data)
+        // console.log(response.data)
+      // showPagination(res.data)
+    //    console.log(response.data.expenses)
+
+    //     response.data.expenses.forEach(expense => {
+    //         showNewExpenseToUI(expense)
+    //         console.log('final',expense)
+            
+    //     });
+        
+        
+    }
+    catch(e)
+    {
+        console.log("error in getting expenses ,e")
+    }
+
+}
+
+// function getExpenses(page){
+//     //const rows=localStorage.getItem('rows');
+//     const token= localStorage.getItem('token');
+//     axios.get(`http://localhost:3000/expense/get-expense/?page=${page}`,{headers:{'Authorization':token}})
+//     .then((response)=>{
+//         //showNewExpenseToUI(data.data.data)
+//         showNewExpenseToUI(response.data.expense)
+//         showPagination(response.data)
+//     }).catch(err=>{
+//         console.log(err)
+//     })
 // }

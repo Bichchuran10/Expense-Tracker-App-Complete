@@ -34,10 +34,40 @@ const addExpense = async(req, res, next) => {
    
 
 const getExpense=(req,res)=>{
+    //const page= +req.query.page|| 1;
+    const ITEMS_PER_PAGE=4;
+    const page= +req.query.page
+    console.log("page controller",page)
+    let totalItems;
+    let lastPage;
 
-        req.user.getExpenses().then(expenses=> {
-            return res.status(200).json({expenses:expenses, success:true})
-        })
+        req.user.getExpenses({
+            offset: (page-1) * ITEMS_PER_PAGE,
+            limit:ITEMS_PER_PAGE
+         })
+         //.then(expenses=> {
+        //     return res.status(200).json({expenses:expenses, success:true})
+        .then(async (limitedExpenses) => {
+            // res.status(200).json(limitedExpenses);
+            console.log('limited expenses----->', limitedExpenses);
+            totalItems = await Expense.count({where: {userId: req.user.id}});
+
+            lastPage = Math.ceil(totalItems / ITEMS_PER_PAGE);
+            if(lastPage === 0) {
+                lastPage = 1;
+            }
+
+            res.status(200).json({
+                expenses: limitedExpenses,
+                totalExpenses: totalItems,
+                currentPage: page,
+                hasNextPage: (page*ITEMS_PER_PAGE) < totalItems,
+                hasPreviousPage: page > 1,
+                nextPage: page + 1,
+                previousPage: page - 1,
+                lastPage: lastPage
+            })
+        })   
     .catch(err=>{
         return res.status(500).json({
             success:false,
